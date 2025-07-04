@@ -1,0 +1,10 @@
+#!/bin/bash
+echo ""
+echo "🔍 Checking setup ..."
+echo ""
+echo "🧠 node:        $(node -v)"
+echo "📦 pnpm:        $(pnpm -v)"
+echo "🧰 bun:         $(bun -v)"
+echo "🚀 supabase:    $(supabase --version)"
+echo ""
+echo "✅ Everything looks good. Happy coding 🚀"

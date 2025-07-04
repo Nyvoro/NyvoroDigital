@@ -1,12 +1,16 @@
 FROM node:18-bullseye
 
-# Install Bun (für Supabase CLI) & aktiviere pnpm
+# Wechsle auf vscode-User, damit bun & supabase im richtigen HOME landen
+USER vscode
+
+# Install bun & aktiviere pnpm mit corepack
 RUN curl -fsSL https://bun.sh/install | bash && \
     corepack enable && \
-    corepack prepare pnpm@latest --activate
+    corepack prepare pnpm@latest --activate && \
+    /home/vscode/.bun/bin/bun add --global supabase
 
-# Add Bun to PATH (manuell, weil Codespace sonst nix rafft)
-ENV PATH="/root/.bun/bin:$PATH"
+# Setze bun korrekt in den PATH (für späteren Zugriff im Container)
+ENV PATH="/home/vscode/.bun/bin:$PATH"
 
-# Installiere Supabase CLI via Bun (global)
-RUN bun add --global supabase
+# Wechsle zurück zu root (für weitere Systemaktionen falls nötig)
+USER root

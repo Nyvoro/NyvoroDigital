@@ -1,109 +1,114 @@
-# Project Context for Codex
+💡 Codex Project Context
+🚀 Vision
+Build a lean SaaS MVP where users interact with AI agents in isolated chats.
+Each agent has its own memory and prompt.
 
-## 🧠 General Vision
+Constraints:
 
-This is a lean SaaS MVP that allows users to create *teams of AI agents*, each with its own memory and prompt. Users chat individually with agents.  
-No authentication, no plugins, no streaming – keep it dead simple.
+No auth
 
-## 🗂️ Project Structure
+No plugins
 
-- `/app` → Next.js frontend (App Router)
-- `/server` → Node server (Neon MCP Server)
+No streaming
 
-## 🌐 API Contract (Neon MCP Server)
+Just chat
 
-- Route: `POST /api/mcp/chat`
-- Request body:
-```json
-{
-  "prompt": "string"
-}
-
-## 🧠 Neon MCP Server
-The “MCP Server” is a Node.js Fastify backend, located in /server. It exposes a single API route:
-
+🗂️ Project Structure
+bash
+Kopieren
+Bearbeiten
+/app     → Next.js frontend (App Router)
+/server  → Neon MCP Server (Node.js backend)
+🔌 API Contract
+Route
 POST /api/mcp/chat
 
-Accepts a JSON payload: { "prompt": string }
-
-Returns: { "id": string, "content": string }
-
-Does not stream responses
-
-Dev Info
-Local Dev Command: pnpm --filter server dev
-
-Runs on: http://localhost:5001
-
-Is deployed as a Supabase Edge Function in prod (via supabase functions deploy)
-d
-The frontend does not host this route. It talks to the MCP Server directly at /api/mcp/chat.
-
-## 📦 Dependency Management
-
-Codex is expected to install required packages explicitly using `pnpm`, unless already present.
-
-Use these installation commands for the most common libraries:
-
-- OpenAI SDK (official v4):  
-  ```sh
-  pnpm add openai@^4
-Supabase JS Client:
-
-sh
+Request
+json
 Kopieren
 Bearbeiten
+{ "prompt": "string" }
+Response
+json
+Kopieren
+Bearbeiten
+{ "id": "string", "content": "string" }
+No streaming
+
+Called directly by the frontend
+
+⚙️ Neon MCP Server
+Framework: Fastify (Node.js)
+
+Path: /server
+
+Dev command: pnpm --filter server dev
+
+Local URL: http://localhost:5001
+
+Prod deploy: Supabase Edge Function (supabase functions deploy)
+
+📦 Dependencies
+Install only what’s needed. Use pnpm in the correct workspace (/app or /server).
+
+Runtime
+bash
+Kopieren
+Bearbeiten
+pnpm add openai@^4
 pnpm add @supabase/supabase-js
-SWR for frontend data fetching:
-
-sh
-Kopieren
-Bearbeiten
 pnpm add swr
-For test and lint support:
-
-sh
+Dev Tools (optional)
+bash
 Kopieren
 Bearbeiten
-pnpm add -D vitest eslint prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
-Always install dependencies in the correct workspace directory (e.g., /app for frontend, /server for backend).
+pnpm add -D vitest eslint prettier \
+  @typescript-eslint/eslint-plugin \
+  @typescript-eslint/parser
+✅ Codex should install everything explicitly – no assumptions.
 
-Never assume a package is preinstalled unless explicitly stated.
+🧠 Error & Retry Strategy (OpenAI)
+Retry Conditions
+Status codes: 429, 500, 502, 503, 504
 
+Strategy
+Exponential backoff:
 
-## 🚨 Error & Rate Limit Handling
+Start: 500ms
 
-The MVP must gracefully handle errors and rate limits from external services like OpenAI.
+Max retries: 3
 
-### OpenAI Retry Strategy
+Double delay each time
 
-- Retry on status codes: `429`, `500`, `502`, `503`, `504`
-- Use **exponential backoff**: start with 500ms, double each time, up to max 3 retries
-- All retry logic must be **centralized** in a reusable wrapper (e.g., `runPrompt()`)
+Wrap this logic in a shared function (e.g., runPrompt())
 
-### User Feedback
+On Final Failure
+Return:
 
-- If retries fail: return error message `"The agent is currently overloaded. Please try again later."`
-- This message must be shown in the frontend chat window as a bot response (same formatting as usual).
+json
+Kopieren
+Bearbeiten
+{ "content": "The agent is currently overloaded. Please try again later." }
+✅ Must appear in the chat UI like a normal bot message.
 
-### Logging
+📝 Logging (on failure)
+Log all final retry failures to Supabase errors table:
 
-- Log all failed retries with error code, timestamp, and prompt in Supabase `errors` table
-- Structure:
-  ```ts
-  {
-    id: string,
-    agent_id: string,
-    prompt: string,
-    error_code: string,
-    created_at: timestamptz
-  }
+ts
+Kopieren
+Bearbeiten
+{
+  id: string
+  agent_id: string
+  prompt: string
+  error_code: string
+  created_at: timestamptz
+}
+🧹 Code Quality
+Use Prettier (pnpm format) – optional
 
-## 🧹 Code Quality Strategy
+ESLint OK but no Husky, no pre-commit hooks
 
-> In this early phase, code quality tools are optional and must **not block development**.
+GitHub CI may lint/test but must not block merges
 
-- Use Prettier for formatting, optionally run via `pnpm format`
-- ESLint config may be added, but **no Husky or git hooks**
-- GitHub CI may report lint/test status, but **must not block merges**
-- We'll revisit strict enforcement after Setup & Build are stable.
+Enforce quality later after build stability

@@ -2,9 +2,6 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    environment: 'node',
-  },
-  css: {
-    postcss: null,
+    setupFiles: ['./vitest.setup.ts'], // wenn sie relativ im server liegt
   },
 });

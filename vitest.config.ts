@@ -2,8 +2,6 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    environment: 'jsdom',
-    setupFiles: [],
+    setupFiles: ['./vitest.setup.ts'],
   },
-  css: { postcss: null },
 });

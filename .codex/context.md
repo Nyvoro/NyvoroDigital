@@ -98,3 +98,12 @@ The MVP must gracefully handle errors and rate limits from external services lik
     error_code: string,
     created_at: timestamptz
   }
+
+## 🧹 Code Quality Strategy
+
+> In this early phase, code quality tools are optional and must **not block development**.
+
+- Use Prettier for formatting, optionally run via `pnpm format`
+- ESLint config may be added, but **no Husky or git hooks**
+- GitHub CI may report lint/test status, but **must not block merges**
+- We'll revisit strict enforcement after Setup & Build are stable.

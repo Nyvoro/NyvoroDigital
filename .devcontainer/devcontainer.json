@@ -1,20 +1,11 @@
+// .devcontainer/devcontainer.json
 {
-  "name": "mvp-client",
-  // 💡  rock‑solid base image
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
-
-  // ➕  add tools declaratively
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "18" },
-    "ghcr.io/devcontainers/features/pnpm:2": {},
-    "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {}
+  "name": "Nyvoro Dev",
+  "build": {
+    "dockerfile": "Dockerfile"
   },
-
-  // standard Codespaces user is *vscode* in this image
-  "remoteUser": "vscode",
-
   "forwardPorts": [3000],
-  "postCreateCommand": "echo '✓ Devcontainer ready' && node -v && pnpm -v && supabase -v",
+  "postCreateCommand": "pnpm install",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
   }

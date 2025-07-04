@@ -9,5 +9,5 @@
     "skipLibCheck": true,
     "outDir": "build"
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../vitest.setup.ts", "../postPrompt.dev.ts"]
 }

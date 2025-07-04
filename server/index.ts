@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import chatRoutes from './routes/chat';
+import 'dotenv/config';
 
 const fastify = Fastify({ logger: true });
 

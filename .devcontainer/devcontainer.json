@@ -1,15 +1,22 @@
 {
-  "name": "Nyvoro Digital",
-  // schlankes offizielles Node-Image reicht
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
-  
-  // Shell-Skripte statt Features
-  "onCreateCommand": ".devcontainer/install-tools.sh",
-  "postCreateCommand": ".devcontainer/check-setup.sh",
+  "name": "mvp-client",
+  // 👉  Entweder eigenes Dockerfile ODER fertiges Image – nimm eins, nicht beide!
+  "image": "mcr.microsoft.com/devcontainers/node:18-bookworm",  // geprüfte Codespaces-Variante
+  // Wenn du trotzdem dein Dockerfile behalten willst, pack den Abschnitt build zurück und lösche "image".
+  // "build": { "dockerfile": "Dockerfile" },
 
-  // optional, aber praktisch
-  "updateContentCommand": "pnpm install",
+  // Installiere Zusatztools lieber via Features:
+  "features": {
+    "ghcr.io/devcontainers/features/pnpm:2": {},
+    "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {}
+  },
 
-  // VS Code Benutzer bleibt vscode
-  "overrideCommand": false
+  // 💡  Wichtig: Als root rein, damit UID-Probleme weg sind
+  "remoteUser": "root",
+
+  "forwardPorts": [3000],
+  "postCreateCommand": "pnpm install",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  }
 }

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/node:18-bookworm
+FROM mcr.microsoft.com/devcontainers/node:18
 
 USER vscode
 

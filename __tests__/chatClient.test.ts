@@ -17,7 +17,10 @@ describe('postPrompt', () => {
 
     const result = await postPrompt('hi');
 
-    expect(mockFetch).toHaveBeenCalledWith('/api/mcp/chat', expect.any(Object));
+    expect(mockFetch).toHaveBeenCalledWith(
+      '/api/mcp/chat',
+      expect.any(Object)
+    );
     expect(result).toEqual({ id: '1', content: 'ok' });
   });
 
@@ -28,6 +31,8 @@ describe('postPrompt', () => {
       text: () => Promise.resolve('fail'),
     });
 
-    await expect(postPrompt('bad')).rejects.toEqual(new ChatError(500, 'fail'));
+    await expect(postPrompt('bad')).rejects.toEqual(
+      new ChatError('fail', 500)
+    );
   });
 });

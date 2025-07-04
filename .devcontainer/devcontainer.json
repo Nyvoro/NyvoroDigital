@@ -1,18 +1,18 @@
 {
-  "name": "mvp-client",
+  "name": "nyvoro-dev",
   "build": {
     "dockerfile": "Dockerfile"
   },
   "forwardPorts": [3000],
-  "postCreateCommand": "pnpm install",
+  "postCreateCommand": "./.devcontainer/setup-success.sh && pnpm install",
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
   },
   "customizations": {
     "vscode": {
       "extensions": [
-        "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
         "dbaeumer.vscode-eslint"
       ]
     }

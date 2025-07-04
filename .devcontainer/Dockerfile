@@ -1,4 +1,4 @@
-FROM node:18-bullseye
+FROM mcr.microsoft.com/devcontainers/node:18
 
 # Wechsle auf vscode-User, damit bun & supabase im richtigen HOME landen
 USER vscode

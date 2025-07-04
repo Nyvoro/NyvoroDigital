@@ -1,4 +1,4 @@
-import { postPrompt } from "./app/lib/chatClient";
+import { postPrompt } from "./src/app/lib/chatClient";
 
 (async () => {
   console.log("🟡 Sende Prompt an Chat-Endpoint...");

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/javascript-node:18
+FROM mcr.microsoft.com/devcontainers/node:18-bookworm
 
 USER vscode
 RUN curl -fsSL https://bun.sh/install | bash && \

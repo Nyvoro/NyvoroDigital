@@ -1,0 +1,9 @@
+{
+  "name": "mvp-client",
+  "build": { "dockerfile": "Dockerfile" },
+  "forwardPorts": [3000],
+  "postCreateCommand": "pnpm install",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  }
+}

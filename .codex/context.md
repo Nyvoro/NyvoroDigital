@@ -19,7 +19,7 @@ No authentication, no plugins, no streaming – keep it dead simple.
   "prompt": "string"
 }
 
-🧠 Neon MCP Server
+## 🧠 Neon MCP Server
 The “MCP Server” is a Node.js Fastify backend, located in /server. It exposes a single API route:
 
 POST /api/mcp/chat
@@ -36,5 +36,36 @@ Local Dev Command: pnpm --filter server dev
 Runs on: http://localhost:5001
 
 Is deployed as a Supabase Edge Function in prod (via supabase functions deploy)
-
+d
 The frontend does not host this route. It talks to the MCP Server directly at /api/mcp/chat.
+
+## 📦 Dependency Management
+
+Codex is expected to install required packages explicitly using `pnpm`, unless already present.
+
+Use these installation commands for the most common libraries:
+
+- OpenAI SDK (official v4):  
+  ```sh
+  pnpm add openai@^4
+Supabase JS Client:
+
+sh
+Kopieren
+Bearbeiten
+pnpm add @supabase/supabase-js
+SWR for frontend data fetching:
+
+sh
+Kopieren
+Bearbeiten
+pnpm add swr
+For test and lint support:
+
+sh
+Kopieren
+Bearbeiten
+pnpm add -D vitest eslint prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser
+Always install dependencies in the correct workspace directory (e.g., /app for frontend, /server for backend).
+
+Never assume a package is preinstalled unless explicitly stated.

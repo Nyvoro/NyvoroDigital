@@ -1,19 +1,14 @@
 {
   "name": "mvp-client",
-  // 👉  Entweder eigenes Dockerfile ODER fertiges Image – nimm eins, nicht beide!
-  "image": "mcr.microsoft.com/devcontainers/node:18-bookworm",  // geprüfte Codespaces-Variante
-  // Wenn du trotzdem dein Dockerfile behalten willst, pack den Abschnitt build zurück und lösche "image".
-  // "build": { "dockerfile": "Dockerfile" },
+  "image": "mcr.microsoft.com/devcontainers/node:18-bullseye",  // ← 100 % verfügbar
+  // oder kürzer: "mcr.microsoft.com/devcontainers/node:18"
 
-  // Installiere Zusatztools lieber via Features:
   "features": {
     "ghcr.io/devcontainers/features/pnpm:2": {},
     "ghcr.io/devcontainers-contrib/features/supabase-cli:1": {}
   },
 
-  // 💡  Wichtig: Als root rein, damit UID-Probleme weg sind
-  "remoteUser": "root",
-
+  "remoteUser": "root",          // vermeidet UID-Ärger
   "forwardPorts": [3000],
   "postCreateCommand": "pnpm install",
   "settings": {

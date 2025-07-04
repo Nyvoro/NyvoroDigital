@@ -69,3 +69,32 @@ pnpm add -D vitest eslint prettier @typescript-eslint/eslint-plugin @typescript-
 Always install dependencies in the correct workspace directory (e.g., /app for frontend, /server for backend).
 
 Never assume a package is preinstalled unless explicitly stated.
+
+
+## 🚨 Error & Rate Limit Handling
+
+The MVP must gracefully handle errors and rate limits from external services like OpenAI.
+
+### OpenAI Retry Strategy
+
+- Retry on status codes: `429`, `500`, `502`, `503`, `504`
+- Use **exponential backoff**: start with 500ms, double each time, up to max 3 retries
+- All retry logic must be **centralized** in a reusable wrapper (e.g., `runPrompt()`)
+
+### User Feedback
+
+- If retries fail: return error message `"The agent is currently overloaded. Please try again later."`
+- This message must be shown in the frontend chat window as a bot response (same formatting as usual).
+
+### Logging
+
+- Log all failed retries with error code, timestamp, and prompt in Supabase `errors` table
+- Structure:
+  ```ts
+  {
+    id: string,
+    agent_id: string,
+    prompt: string,
+    error_code: string,
+    created_at: timestamptz
+  }

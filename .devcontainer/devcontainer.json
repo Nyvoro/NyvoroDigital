@@ -1,20 +1,15 @@
 {
-  "name": "nyvoro-digital",
-  // Official image WITH "vscode" user and common tools baked in
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
+  "name": "Nyvoro Digital",
+  // schlankes offizielles Node-Image reicht
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  
+  // Shell-Skripte statt Features
+  "onCreateCommand": ".devcontainer/install-tools.sh",
+  "postCreateCommand": ".devcontainer/check-setup.sh",
 
-  "features": {
-    // ➜ https://github.com/devcontainers/features/tree/main/src/bun
-    "ghcr.io/devcontainers/features/bun:1": {},
-    // ➜ https://github.com/devcontainers/features/tree/main/src/pnpm
-    "ghcr.io/devcontainers/features/pnpm:latest": { "version": "latest" },
-    // ➜ https://github.com/devcontainers-contrib/features/tree/main/src/supabase-cli
-    "ghcr.io/devcontainers-contrib/features/supabase-cli:1": { "version": "latest" }
-  },
+  // optional, aber praktisch
+  "updateContentCommand": "pnpm install",
 
-  "forwardPorts": [3000],
-  "postCreateCommand": "./.devcontainer/check-setup.sh",
-  "customizations": {
-    "vscode": { "settings": { "terminal.integrated.defaultProfile.linux": "bash" } }
-  }
+  // VS Code Benutzer bleibt vscode
+  "overrideCommand": false
 }

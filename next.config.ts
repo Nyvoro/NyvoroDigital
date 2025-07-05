@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // andere Optionen, z. B. swcMinify, etc.
 };
 
 export default nextConfig;

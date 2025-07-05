@@ -8,12 +8,12 @@ const mockSend = vi
   .mockResolvedValueOnce({ id: '1', content: 'Hi there' })
   .mockResolvedValueOnce({ id: '2', content: 'Second' });
 
-vi.mock('../src/app/hooks/useChat', () => ({
+vi.mock('../app/hooks/useChat', () => ({
   useChat: () => ({ sendPrompt: mockSend, isLoading: false }),
   __esModule: true,
 }));
 
-import ChatWindow from '../src/app/chat/ChatWindow';
+import ChatWindow from '../app/chat/ChatWindow';
 
 describe('ChatWindow optimistic UI', () => {
   it('replaces placeholders with responses in order', async () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { conversationReducer, initialState } from '../src/app/chat/conversationReducer';
+import { conversationReducer, initialState } from '../app/chat/conversationReducer';
 
 describe('conversationReducer', () => {
   it('maintains ordering for multiple prompts', () => {

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useChat } from '../src/app/hooks/useChat';
-import { ChatError } from '../src/app/lib/chatClient';
+import { useChat } from '../app/hooks/useChat';
+import { ChatError } from '../app/lib/chatClient';
 
 const mockFetch = vi.fn();
 

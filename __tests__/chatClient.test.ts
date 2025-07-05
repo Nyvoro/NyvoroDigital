@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { postPrompt, ChatError } from '../src/app/lib/chatClient';
+import { postPrompt, ChatError } from '../app/lib/chatClient';
 
 const mockFetch = vi.fn();
 

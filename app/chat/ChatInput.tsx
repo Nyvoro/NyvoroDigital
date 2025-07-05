@@ -10,22 +10,26 @@ interface Props {
 export default function ChatInput({ onSend, isLoading }: Props) {
   const [text, setText] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (!text.trim()) return;
     onSend(text.trim());
     setText("");
   };
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit(e as any);
+      handleSubmit();
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-2 flex gap-2">
+    <form onSubmit={handleFormSubmit} className="mt-2 flex gap-2">
       <textarea
         aria-label="Prompt"
         value={text}
@@ -50,4 +54,3 @@ export default function ChatInput({ onSend, isLoading }: Props) {
     </form>
   );
 }
-

@@ -1,4 +1,3 @@
-# .github/workflows/e2e.yml
 name: E2E Tests
 
 on:
@@ -11,23 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
+    defaults:
+      run:
+        working-directory: nyvorodigital   # 👈 Hier ist der Magic-Fix
+
     steps:
       - uses: actions/checkout@v3
 
-      # 1️⃣ Node zuerst (ohne Cache)
       - uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # 2️⃣ pnpm action => installiert + cached
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-          run_install: false      # wir installieren gleich manuell
-          cache: true             # 🎉 automatisch pnpm‑Store cachen
+          run_install: false
+          cache: true
 
-      # 3️⃣ Ab hier steht pnpm im PATH, Cache ist schon verfügbar
       - run: pnpm install --frozen-lockfile
 
       - run: npx playwright install --with-deps
+
       - run: pnpm run test:e2e:ci

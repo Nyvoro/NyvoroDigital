@@ -1,20 +1,19 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useReducer, useRef, useEffect } from "react";
 import { useChat } from "../hooks/useChat";
 import { ChatError } from "../lib/chatClient";
 import ChatInput from "./ChatInput";
 import MessageList from "./MessageList";
-
-export interface Message {
-  id: string;
-  role: "user" | "bot";
-  content: string;
-}
+import {
+  conversationReducer,
+  initialState,
+} from "./conversationReducer";
+import type { Msg } from "@/types/chat";
 
 export default function ChatWindow() {
-  const { sendPrompt, isLoading } = useChat();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const { sendPrompt } = useChat();
+  const [state, dispatch] = useReducer(conversationReducer, initialState);
   const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -25,38 +24,34 @@ export default function ChatWindow() {
     if (nearBottom) {
       el.scrollTop = el.scrollHeight;
     }
-  }, [messages]);
+  }, [state.messages]);
 
   const handleSend = async (text: string) => {
-    const userMsg: Message = {
-      id: crypto.randomUUID(),
-      role: "user",
-      content: text,
-    };
-    setMessages((m) => [...m, userMsg]);
+    const userId = crypto.randomUUID();
+    dispatch({ type: "ADD_USER", id: userId, content: text });
+    dispatch({ type: "ADD_BOT_PLACEHOLDER", userId });
 
     try {
       const res = await sendPrompt(text);
-      setMessages((m) => [
-        ...m,
-        { id: res.id, role: "bot", content: res.content },
-      ]);
+      dispatch({ type: "RESOLVE_BOT", userId, content: res.content });
     } catch (err) {
       const message = err instanceof ChatError ? err.message : "Error";
-      setMessages((m) => [
-        ...m,
-        { id: crypto.randomUUID(), role: "bot", content: message },
-      ]);
+      dispatch({ type: "REPLACE_WITH_ERROR", userId, content: message });
     }
   };
 
   return (
     <div className="flex h-screen flex-col items-center p-4">
       <div className="flex w-full max-w-xl flex-1 flex-col">
-        <MessageList ref={listRef} messages={messages} />
-        <ChatInput onSend={handleSend} isLoading={isLoading} />
+        <MessageList ref={listRef} messages={state.messages} />
+        <ChatInput
+          onSend={handleSend}
+          isLoading={Object.values(state.pending).some(Boolean)}
+        />
       </div>
     </div>
   );
 }
+
+export type Message = Msg;
 

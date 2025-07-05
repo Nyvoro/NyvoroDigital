@@ -22,5 +22,8 @@ export default async function routes(fastify: FastifyInstance) {
 
       return reply.code(500).send({ error: 'Internal server error' });
     }
-  });
+  })
+  fastify.options('/api/mcp/chat', (_, reply) => {
+  reply.send();
+});
 }

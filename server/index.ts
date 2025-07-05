@@ -1,24 +1,27 @@
-import Fastify from "fastify";
-import cors from "@fastify/cors";
-import chatRoutes from "./routes/chat";
-import "dotenv/config";
+import 'dotenv/config';
+import Fastify from 'fastify';
+import cors        from '@fastify/cors';
+import chatRoutes  from './routes/chat';
+
 
 const fastify = Fastify({ logger: true });
 
-async function start() {
-  try {
-    console.log("📦 Registering CORS...");
-    await fastify.register(cors, { origin: true });
-    console.log("✅ CORS registered.");
+/* ----------  CORS  ---------- */
+await fastify.register(cors, {
+  // ① Lass alle Domains zu ‑ oder whiteliste dein Codespace‑Frontend
+  origin: (origin, cb) => cb(null, true),   // «*» freigeben
 
-    fastify.register(chatRoutes);
+  // ② Welche Methoden dürfen von außen kommen?
+  methods: ['POST', 'OPTIONS'],
 
-    await fastify.listen({ port: 5001, host: "0.0.0.0" });
-    console.log("🚀 Server ready at http://localhost:5001");
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-}
+  // ③ Welche Header darf der Browser mitsenden
+  allowedHeaders: ['Content-Type']
+});
+/* ---------------------------- */
 
-start();
+fastify.register(chatRoutes);
+
+fastify.listen({ port: 5001, host: '0.0.0.0' }, err => {
+  if (err) throw err;
+  console.log('🚀 Backend auf http://localhost:5001');
+});

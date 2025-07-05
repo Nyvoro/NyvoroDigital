@@ -13,6 +13,7 @@
     "test": "vitest run --config vitest.config.ts && pnpm -F server test"
   },
   "dependencies": {
+    "@fastify/cors": "^8.5.0",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

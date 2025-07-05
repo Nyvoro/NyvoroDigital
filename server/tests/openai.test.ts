@@ -8,11 +8,20 @@ vi.mock('openai', () => ({
   },
 }));
 
+vi.mock('../lib/supabaseAdmin', () => ({
+  supabase: { from: () => ({ insert: vi.fn() }) },
+}));
+
 let runPrompt: (prompt: string) => Promise<{ id: string; content: string }>;
 
 beforeEach(async () => {
+  delete (global as any).window;
   vi.useFakeTimers();
   createMock.mockReset();
+  process.env.OPENAI_API_KEY = 'test';
+  process.env.SUPABASE_URL = 'http://localhost';
+  process.env.SUPABASE_SERVICE_KEY = 'key';
+  vi.resetModules();
   const mod = await import('../lib/openai');
   runPrompt = mod.runPrompt;
 });

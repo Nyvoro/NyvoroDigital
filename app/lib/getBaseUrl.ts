@@ -7,5 +7,5 @@ export const getBaseUrl = () => {
   // Client-Side (Browser in Codespaces)
   const port = 5001;
   const host = window.location.hostname; // z. B. shiny-...github.dev
-  return "https://shiny-goggles-r4rw65ww9jqw3wqq4-5001.app.github.dev";
+  return "https://effective-system-g456rv66g4w63p6vg-5001.app.github.dev";
 };

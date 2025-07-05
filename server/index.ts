@@ -36,7 +36,7 @@ await fastify.register(cors, {
 });
 /* ---------------------------- */
 
-fastify.register(chatRoutes);
+fastify.register(chatRoutes, { prefix: '/api/mcp' });
 
 fastify.listen({ port: 5001, host: '0.0.0.0' }, err => {
   if (err) throw err;

@@ -7,7 +7,7 @@ export default async function routes(fastify: FastifyInstance) {
     prompt: z.string().min(1),
   });
 
-  fastify.post('/api/mcp/chat', async (req, reply) => {
+  fastify.post('/chat', async (req, reply) => {
     try {
       const { prompt } = PromptRequest.parse(req.body);
       const result = await runPrompt(prompt);
@@ -23,7 +23,7 @@ export default async function routes(fastify: FastifyInstance) {
       return reply.code(500).send({ error: 'Internal server error' });
     }
   })
-  fastify.options('/api/mcp/chat', (_, reply) => {
+  fastify.options('/chat', (_, reply) => {
   reply.send();
 });
 }

@@ -46,3 +46,19 @@ const { sendPrompt, isLoading, conversation } = useChat();
 This hook depends on the upcoming UI from the L2-3 milestone to render messages.
 ## Polish
 Smooth scrolling, loading spinner and error banner improve overall UX.
+
+## Testing
+
+Run the full unit and integration test suite:
+
+```bash
+pnpm test
+```
+
+To generate a coverage report, use:
+
+```bash
+pnpm test:cov
+```
+
+Open `coverage/index.html` in your browser to view detailed coverage results.

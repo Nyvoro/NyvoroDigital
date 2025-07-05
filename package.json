@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.5.0",
-    "fastify": "^4.26.2",
+    "fastify": "^4.29.1",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -2,6 +2,23 @@ import 'dotenv/config';
 import Fastify from 'fastify';
 import cors        from '@fastify/cors';
 import chatRoutes  from './routes/chat';
+import { supabase } from './lib/supabaseAdmin'
+
+/* async function testInsert() {
+  const { error } = await supabase.from('error_logs').insert({
+    agent_id: 'manual-test',
+    prompt: 'did it work?',
+    error_code: 'manual'
+  })
+
+  if (error) {
+    console.error('[manual log insert failed]', error)
+  } else {
+    console.log('✅ Manual log insert successful')
+  }
+}
+
+testInsert() */
 
 
 const fastify = Fastify({ logger: true });

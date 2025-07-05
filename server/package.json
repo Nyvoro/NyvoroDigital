@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.5.0",
+    "@supabase/supabase-js": "^2.50.3",
     "dotenv": "^17.0.1",
     "fastify": "^4.26.2",
     "openai": "^4.21.0",

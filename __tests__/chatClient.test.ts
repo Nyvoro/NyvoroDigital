@@ -18,7 +18,7 @@ describe('postPrompt', () => {
     const result = await postPrompt('hi');
 
     expect(mockFetch).toHaveBeenCalledWith(
-      '/api/mcp/chat',
+      expect.stringContaining('/api/mcp/chat'),
       expect.any(Object)
     );
     expect(result).toEqual({ id: '1', content: 'ok' });

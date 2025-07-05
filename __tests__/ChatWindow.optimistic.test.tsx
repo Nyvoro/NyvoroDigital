@@ -15,6 +15,11 @@ vi.mock('../app/hooks/useChat', () => ({
 
 import ChatWindow from '../app/chat/ChatWindow';
 
+Object.defineProperty(HTMLElement.prototype, 'scrollTo', {
+  value: () => {},
+  writable: true,
+});
+
 describe('ChatWindow optimistic UI', () => {
   it('replaces placeholders with responses in order', async () => {
     render(<ChatWindow />);
@@ -23,7 +28,7 @@ describe('ChatWindow optimistic UI', () => {
     fireEvent.change(textarea, { target: { value: 'hello' } });
     fireEvent.keyDown(textarea, { key: 'Enter' });
 
-    await screen.findByText('…');
+    await screen.findByText((_, el) => el?.classList.contains('typing-dots'));
     await screen.findByText('Hi there');
 
     fireEvent.change(textarea, { target: { value: 'next' } });

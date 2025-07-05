@@ -11,7 +11,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run --config vitest.config.ts && pnpm -F server test",
-    "test:cov": "vitest run --coverage --config vitest.config.ts && pnpm -F server test -- --coverage"
+    "test:cov": "vitest run --coverage --config vitest.config.ts && pnpm -F server test -- --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ci": "playwright test --reporter=list"
   },
   "dependencies": {
     "@fastify/cors": "^8.5.0",

@@ -11,7 +11,7 @@ const fallback = 'The agent is currently overloaded. Please try again later.';
 function buildServer() {
   const app = Fastify();
   app.register(cors, { origin: (_o, cb) => cb(null, true) });
-  app.register(chatRoutes);
+  app.register(chatRoutes, { prefix: '/api/mcp' });
   return app;
 }
 

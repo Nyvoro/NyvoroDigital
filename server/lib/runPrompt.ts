@@ -1,5 +1,3 @@
-import { openai } from './openai';
-import { supabase } from './supabaseAdmin';
 import { webcrypto } from 'node:crypto';
 
 const crypto = webcrypto;
@@ -10,6 +8,11 @@ export interface ChatResponse {
 }
 
 export async function runPrompt(prompt: string): Promise<ChatResponse> {
+  if (process.env.USE_OPENAI_STUB === '1') {
+    return { id: 'stub-1', content: 'Hi there \u{1F44B}' };
+  }
+  const { openai } = await import('./openai');
+  const { supabase } = await import('./supabaseAdmin');
   const retries = [500, 1000, 2000];
 
   for (const delay of retries) {

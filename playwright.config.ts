@@ -10,6 +10,7 @@ export default defineConfig({
       env: { USE_OPENAI_STUB: '1' },
       url: 'http://localhost:5001/healthz',
       reuseExistingServer: !process.env.CI,
+      timeout: 30 * 1000,
     },
     {
       command: 'pnpm dev',

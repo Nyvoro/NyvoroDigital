@@ -19,7 +19,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: 10.11.0           # ← WICHTIG! Deine lokale Version
           run_install: false
           cache: true
 

@@ -1,6 +1,10 @@
 import { ChatResponse } from "@/server/types";
 import { getBaseUrl } from "./getBaseUrl";
 
+console.log("🌐 BASE URL = ", getBaseUrl());
+console.log("⬆️ Prompt wird gesendet an:", `${getBaseUrl()}/api/mcp/chat`);
+console.log("➡️ ChatClient: Fetch an:", `${getBaseUrl()}/api/mcp/chat`);
+
 export class ChatError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -16,8 +20,7 @@ export async function postPrompt(prompt: string): Promise<ChatResponse> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt }),
   });
-
-  console.log("➡️ ChatClient: Fetch an:", `${getBaseUrl()}/api/mcp/chat`);
+ 
 
   if (!response.ok) {
     const message = await response.text();

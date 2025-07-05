@@ -8,6 +8,7 @@ export default defineConfig({
       ['**/__tests__/runPrompt.test.ts', 'node'],
       ['**/__tests__/chatRoute.test.ts', 'node'],
     ],
+    exclude: ['e2e/**'],
     coverage: {
       reporter: ['text', 'html'],
       lines: 80,

@@ -2,6 +2,7 @@ import 'dotenv/config';
 import Fastify from 'fastify';
 import cors        from '@fastify/cors';
 import chatRoutes  from './routes/chat';
+import healthRoutes from './routes/healthz';
 import { supabase } from './lib/supabaseAdmin'
 
 /* async function testInsert() {
@@ -37,6 +38,7 @@ await fastify.register(cors, {
 /* ---------------------------- */
 
 fastify.register(chatRoutes, { prefix: '/api/mcp' });
+fastify.register(healthRoutes);
 
 fastify.listen({ port: 5001, host: '0.0.0.0' }, err => {
   if (err) throw err;

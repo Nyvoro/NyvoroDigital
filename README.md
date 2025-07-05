@@ -62,3 +62,10 @@ pnpm test:cov
 ```
 
 Open `coverage/index.html` in your browser to view detailed coverage results.
+
+## E2E tests
+
+```bash
+pnpm test:e2e           # local headless
+USE_OPENAI_STUB=0 pnpm test:e2e  # hit real API
+```

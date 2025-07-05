@@ -10,10 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
-    defaults:
-      run:
-        working-directory: nyvorodigital   # 👈 Hier ist der Magic-Fix
-
     steps:
       - uses: actions/checkout@v3
 
@@ -27,8 +23,11 @@ jobs:
           run_install: false
           cache: true
 
-      - run: pnpm install --frozen-lockfile
+      - name: 📥 Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - run: npx playwright install --with-deps
+      - name: 🎭 Install Playwright browsers
+        run: npx playwright install --with-deps
 
-      - run: pnpm run test:e2e:ci
+      - name: 🧪 Run E2E tests
+        run: pnpm run test:e2e:ci

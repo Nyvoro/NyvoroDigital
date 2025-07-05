@@ -44,3 +44,5 @@ const { sendPrompt, isLoading, conversation } = useChat();
 ```
 
 This hook depends on the upcoming UI from the L2-3 milestone to render messages.
+## Polish
+Smooth scrolling, loading spinner and error banner improve overall UX.

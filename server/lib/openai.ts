@@ -1,9 +1,9 @@
-import 'dotenv/config';
 import { OpenAI } from 'openai';
 import { runPrompt } from './runPrompt';
+import { config } from './config';
 
 export const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: config.openaiKey,
 });
 
 
